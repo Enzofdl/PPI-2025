@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil - Plataforma Eventos</title>
+</head>
+<body>
+<header style="border-bottom: 1px solid black;">
+    <div style="display: flex; flex-direction: row; align-items: center; justify-content: space-between">
+        <h1>Plataforma Eventos</h1>
+        <nav style="font-size: 15pt">
+            <a href="#inicio">Início</a>
+            <a href="#contato">Contato</a>
+        </nav>
+    </div>
+</header>
+
+<section id="inicio" style="margin-top: 20px; font-size: 15pt">
+    <p id="paragrafo-inicial">Bem-vindo à Plataforma Eventos, sua solução definitiva e integrada para gerenciamento, divulgação e inscrição em eventos. Em um mundo onde a experiência é tudo, nós fornecemos a tecnologia para que você possa focar no que realmente importa: criar momentos únicos.
+        <br><br>Chega de lidar com planilhas, ferramentas de e-mail e gateways de pagamento separados. Nossa plataforma centraliza todo o ciclo de vida do seu evento, ajudando empresas a organizar desde conferências corporativas de alto impacto e feiras de negócios até vibrantes festivais de música e workshops exclusivos.</p>
+</section>
+
+<section style="display: flex; justify-content: center; margin-top: 20px;">
+    <div style="border: 1px solid #333; padding: 20px; width: 80%; text-align: center;">
+        <h2 style="margin-top: 0;">Verificar matrícula do grupo</h2>
+        <label for="matriculaInput">Informe o número da matrícula:</label>
+        <input type="text" id="matriculaInput" placeholder="Digite a matrícula (ex: 12211bcc034)" style="margin-left: 10px; padding: 5px; text-align: center;">
+        <button id="verificarBtn" style="margin-left: 10px; padding: 6px 12px;">Verificar</button>
+        <p id="mensagem" style="color: #cc0000; font-weight: bold;"></p>
+    </div>
+</section>
+
+<section style="display: flex; flex-wrap: wrap; justify-content: space-around; margin-top: 30px; font-size: 14pt;">
+    <article style="border: 1px solid #ccc; padding: 15px; width: 30%; margin-bottom: 20px;">
+        <h3>Enzo</h3>
+        <p><strong>Matrícula:</strong> 12221bcc010</p>
+        <p id="descricao-12221bcc010">Enzo é Head de Tecnologia no LabFy, atuando como desenvolvedor fullstack com especialização em automação de processos e na plataforma n8n. Ele possui formação técnica em Computação Gráfica e está atualmente cursando a graduação em Ciências da Computação</p>
+    </article>
+    <article style="border: 1px solid #ccc; padding: 15px; width: 30%; margin-bottom: 20px;">
+        <h3>Giovane</h3>
+        <p><strong>Matrícula:</strong> 12121bcc028</p>
+        <p id="descricao-12121bcc028">Giovane é estudante de Ciência da Computação na Universidade Federal de Uberlândia (UFU) e possui diploma técnico em Computação Gráfica pelo IFTM. Ele foi premiado na OBMEP com menção honrosa por três anos consecutivos (2017, 2018 e 2019).</p>
+    </article>
+    <article style="border: 1px solid #ccc; padding: 15px; width: 30%; margin-bottom: 20px;">
+        <h3>Arthur</h3>
+        <p><strong>Matrícula:</strong> 12211bcc054</p>
+        <p id="descricao-12211bcc054">Arthur é estudante de Ciência da Computação (UFU) e desenvolvedor Java com foco em Desenvolvimento Web. Possui proficiência em Spring Boot para criação de APIs REST, além de experiência em bancos de dados SQL e Git/GitHub. Destaca-se também por sua atuação de dois anos como Diretor de Produtos no DACOMP, onde desenvolveu habilidades de liderança e gestão de projetos.</p>
+    </article>
+    <article style="border: 1px solid #ccc; padding: 15px; width: 30%; margin-bottom: 20px;">
+        <h3>Malcon</h3>
+        <p><strong>Matrícula:</strong> 12211bcc034</p>
+        <p id="descricao-12211bcc034">Malcon é graduando em Ciência da Computação pela UFU, com formação técnica em Computação Gráfica pelo IFTM. Ele possui experiência como desenvolvedor Front-End e Full-Stack. Atualmente, atua no CTIC da UFU, trabalhando com prototipação em Figma e implementação em Angular. Paralelamente, na empresa júnior ASCII, exerce as funções de desenvolvedor Full-Stack e Diretor Comercial/Marketing, combinando habilidades técnicas com liderança e relacionamento com clientes.</p>
+    </article>
+    <article style="border: 1px solid #ccc; padding: 15px; width: 30%; margin-bottom: 20px;">
+        <h3>Felipe</h3>
+        <p><strong>Matrícula:</strong> 12211bcc020</p>
+        <p id="descricao-12211bcc020">Felipe é estudante de Ciência da Computação na UFU, em fase final de graduação. Possui dois anos de experiência profissional como desenvolvedor full-stack. Iniciou sua carreira na Vine Soluções, onde trabalhou com HTML, CSS, JavaScript, PHP, Node.js, React Native e Java (Android).
+
+            Atualmente em sua segunda empresa, ele atua com foco em FastAPI (Python) e React, além de contribuir para projetos móveis com React Native e Flutter. Felipe também tem forte experiência em infraestrutura e bancos de dados, utilizando diariamente Docker, Alembic, MySQL e PostgreSQL (incluindo triggers, procedures e otimização).</p>
+    </article>
+    <article style="border: 1px solid #ccc; padding: 15px; width: 30%; margin-bottom: 20px;">
+        <h3>Eduardo</h3>
+        <p><strong>Matrícula:</strong> 12011bcc049</p>
+        <p id="descricao-12011bcc049">Profissional da área de Desenvolvimento de Software, com atuação focada na criação de soluções eficientes, escaláveis e orientadas às necessidades do usuário. Possui domínio em linguagens como Java, Python e JavaScript, experiência em desenvolvimento backend, integração de APIs, arquitetura MVC e utilização de frameworks modernos. Atua com boas práticas de versionamento (Git), testes, documentação técnica e metodologias ágeis (Scrum/Kanban).</p>
+    </article>
+</section>
+
+<section style="display: flex; justify-content: center">
+    <table border="1" style="width: 80%;">
+        <caption style="font-size: 20pt">Agenda dos principais eventos parceiros</caption>
+        <thead>
+        <tr>
+            <th>Evento</th>
+            <th>Categoria</th>
+            <th>Data</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Tech Conference 2025</td>
+            <td>Corporativo / Tecnologia</td>
+            <td>20/10/2025</td>
+        </tr>
+        <tr>
+            <td>Festival de Gastronomia Local</td>
+            <td>Feira / Exposição</td>
+            <td>15/11/2025</td>
+        </tr>
+        <tr>
+            <td>Workshop de Marketing Digital</td>
+            <td>Workshop / Educacional</td>
+            <td>05/12/2025</td>
+        </tr>
+        </tbody>
+    </table>
+</section>
+
+<div>
+    <h1>Projeto Web ASCII Empresa Júnior - Meu primeiro Projeto Hello World</h1>
+    <section> Seção de contato da empresa Júnior de Computação </section>
+</div>
+
+<div style="display: flex; justify-content: center; padding: 20px">
+    <iframe width="640" height="480" src="https://www.youtube.com/embed/pfKZhjm3MP8?si=yKjiLMmZetIVm70E" title="YouTube video player"></iframe>
+</div>
+
+<footer id="contato" style="border-top: 1px solid #ccc; padding-top: 20px; text-align: center;">
+    <p>© 2025 - Todos direitos reservados.</p>
+</footer>
+
+<script src="descricaoProfissional.js"></script>
+</body>
+</html>
+
