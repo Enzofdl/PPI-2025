@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro Plataforma de Eventos</title>
+</head>
+<body>
+
+<form style="background-color: #FDFBD4; border: 1px solid black; display:flex; flex-direction: column; padding: 25px; border-radius: 8px; max-width: 500px; margin: 20px auto;">
+
+    <div style="display:flex; flex-direction: column; gap: 20px">
+
+        <div>
+            <label for="user">Empresa:</label>
+            <input id="user" type="text" placeholder="Digite o nome da empresa" name="nome_empresa" required>
+        </div>
+
+        <div>
+            <label for="email">E-mail:</label>
+            <input id="email" type="email" placeholder="Digite o email da empresa" name="email_empresa" required>
+        </div>
+
+        <div>
+            <label for="senha">Senha:</label>
+            <input id="senha" type="password" placeholder="Defina uma senha" name="senha_empresa">
+        </div>
+
+        <div>
+            <label for="tipo_evento">Tipo de Evento Principal:</label>
+            <select id="tipo_evento" name="tipo_evento">
+                <option value="" disabled selected>Selecione uma categoria</option>
+                <option value="corporativo">Corporativo</option>
+                <option value="conferencia">Conferência</option>
+                <option value="workshop">Workshop</option>
+                <option value="show">Show / Festival</option>
+                <option value="feira">Feira / Exposição</option>
+            </select>
+        </div>
+
+        <div>
+            <input id="termos" type="checkbox" name="termos" required>
+            <label for="termos">Aceito os termos de uso da Empresa</label>
+        </div>
+
+        <div>
+            <button type="submit" name="enviar">Enviar</button>
+            <button type="submit" name="limpar">Limpar</button>
+        </div>
+
+    </div>
+
+</form>
+
+</body>
+</html>
