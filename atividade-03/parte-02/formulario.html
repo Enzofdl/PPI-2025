@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro de Evento</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h2>Cadastro de Evento</h2>
+
+<form id="formEvento">
+
+    <label>Título do Evento:</label><br>
+    <input type="text" id="titulo" required><br>
+
+    <label>Descrição:</label><br>
+    <textarea id="descricao" required></textarea><br>
+
+    <label>Data e Hora de Início:</label><br>
+    <input type="datetime-local" id="inicio" required><br>
+
+    <label>Empresa Organizadora:</label><br>
+    <input type="text" id="empresa" required><br>
+
+    <label>Categoria do Evento:</label><br>
+    <select id="categoria" required>
+        <option value="">Selecione...</option>
+        <option value="corporativo">Corporativo</option>
+        <option value="show">Show</option>
+        <option value="workshop">Workshop</option>
+        <option value="esportivo">Esportivo</option>
+    </select><br>
+
+    <button type="button" onclick="gerarRelatorio()">Gerar Relatório</button>
+</form>
+
+<div id="relatorio">
+    <h3>Relatório do Cadastro</h3>
+    <p id="textoRelatorio"></p>
+    <img id="imgCategoria" src="" alt="">
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
