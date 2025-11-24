@@ -1,0 +1,44 @@
+.form-container {
+    background-color: #FDFBD4;
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    border-radius: 8px;
+    max-width: 500px;
+    margin: 20px auto;
+    gap: 10px;
+}
+
+.form-container h1 {
+    margin: 0px;
+}
+
+.form-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.input-row {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: flex-end;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: row;
+}
+
+#foto {
+    display: none;
+    width: 300px;
+    height: 300px;
+    border-radius: 8px;
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    cursor: pointer;
+}
