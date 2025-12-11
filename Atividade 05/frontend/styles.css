@@ -1,0 +1,503 @@
+/* ================================================== */
+/* ARQUIVO: styles.css                                 */
+/* DESCRICAO: Estilos da pagina de gerenciamento       */
+/*            de usuarios                              */
+/* ================================================== */
+
+/* ================================================== */
+/* VARIAVEIS CSS (Custom Properties)                   */
+/* Define as cores e valores reutilizaveis do tema    */
+/* ================================================== */
+:root {
+    /* Cores principais */
+    --color-primary: #F0EC75;        /* Amarelo principal */
+    --color-primary-dark: #d4d066;   /* Amarelo escuro (hover) */
+    --color-primary-light: #faf9e0;  /* Amarelo claro (backgrounds) */
+    
+    /* Cores de acao */
+    --color-success: #059669;        /* Verde para sucesso */
+    --color-warning: #d97706;        /* Laranja para edicao */
+    --color-danger: #dc2626;         /* Vermelho para exclusao */
+    --color-danger-dark: #b91c1c;    /* Vermelho escuro (hover) */
+    
+    /* Cores neutras */
+    --color-bg: #f1f5f9;             /* Fundo da pagina */
+    --color-card: #ffffff;           /* Fundo dos cards */
+    --color-text: #1e293b;           /* Texto principal */
+    --color-text-light: #64748b;     /* Texto secundario */
+    --color-border: #e2e8f0;         /* Bordas */
+    
+    /* Espacamentos */
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 1rem;
+    --spacing-md: 1.5rem;
+    --spacing-lg: 2rem;
+    --spacing-xl: 3rem;
+    
+    /* Bordas arredondadas */
+    --radius-sm: 0.375rem;
+    --radius-md: 0.75rem;
+    --radius-lg: 1rem;
+    --radius-full: 9999px;
+    
+    /* Sombras */
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    
+    /* Transicoes */
+    --transition-fast: 150ms ease;
+    --transition-normal: 250ms ease;
+}
+
+/* ================================================== */
+/* RESET E ESTILOS BASE                               */
+/* Remove estilos padrao do navegador                 */
+/* ================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    line-height: 1.6;
+    min-height: 100vh;
+    font-size: 0.9rem;
+}
+
+/* ================================================== */
+/* CONTAINER PRINCIPAL                                 */
+/* Centraliza e limita a largura do conteudo          */
+/* ================================================== */
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: var(--spacing-lg);
+}
+
+/* ================================================== */
+/* CABECALHO (HEADER)                                  */
+/* Titulo e descricao da pagina                        */
+/* Conectado visualmente com o formulario             */
+/* ================================================== */
+.header {
+    text-align: center;
+    padding: var(--spacing-md) var(--spacing-lg);
+    background-color: var(--color-primary);
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    color: var(--color-text);
+}
+
+.header h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+}
+
+.header p {
+    font-size: 0.85rem;
+    opacity: 0.8;
+    font-weight: 400;
+}
+
+/* ================================================== */
+/* SECAO DO FORMULARIO                                 */
+/* Card contendo o formulario de cadastro              */
+/* Conectado ao cabecalho (sem borda superior)        */
+/* ================================================== */
+.form-section {
+    background: var(--color-card);
+    border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+    padding: var(--spacing-lg);
+    margin-bottom: var(--spacing-lg);
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--color-border);
+    border-top: none;
+}
+
+.form-section h2 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--color-text);
+    margin-bottom: var(--spacing-md);
+    padding-bottom: var(--spacing-sm);
+    border-bottom: 2px solid var(--color-primary-light);
+}
+
+/* ================================================== */
+/* FORMULARIO E CAMPOS DE ENTRADA                     */
+/* Estilos para inputs, labels e grupos de formulario */
+/* ================================================== */
+.user-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+}
+
+.form-group label {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--color-text);
+}
+
+.form-group input {
+    padding: 0.65rem 0.9rem;
+    font-size: 0.9rem;
+    font-family: inherit;
+    border: 2px solid var(--color-border);
+    border-radius: var(--radius-md);
+    transition: var(--transition-fast);
+    background-color: var(--color-bg);
+}
+
+/* Estado de foco nos inputs */
+.form-group input:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    background-color: var(--color-card);
+    box-shadow: 0 0 0 3px var(--color-primary-light);
+}
+
+/* Placeholder dos inputs */
+.form-group input::placeholder {
+    color: var(--color-text-light);
+    font-weight: 300;
+}
+
+/* ================================================== */
+/* BOTOES                                              */
+/* Estilos para todos os tipos de botoes              */
+/* ================================================== */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-xs);
+    padding: 0.65rem 1.25rem;
+    font-size: 0.85rem;
+    font-family: inherit;
+    font-weight: 500;
+    border: none;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: var(--transition-normal);
+}
+
+/* Botao primario (amarelo) - usado para adicionar */
+.btn-primary {
+    background-color: var(--color-primary);
+    color: var(--color-text);
+    box-shadow: var(--shadow-sm);
+}
+
+.btn-primary:hover {
+    background-color: var(--color-primary-dark);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+/* Botao secundario (cinza) - usado para cancelar */
+.btn-secondary {
+    background-color: var(--color-border);
+    color: var(--color-text);
+}
+
+.btn-secondary:hover {
+    background-color: #cbd5e1;
+}
+
+/* Botao de edicao (laranja) */
+.btn-edit {
+    background-color: #fef3c7;
+    color: var(--color-warning);
+    font-size: 0.75rem;
+    padding: 0.45rem 0.9rem;
+}
+
+.btn-edit:hover {
+    background-color: #fde68a;
+}
+
+/* Botao de exclusao (vermelho) */
+.btn-delete {
+    background-color: #fee2e2;
+    color: var(--color-danger);
+    font-size: 0.75rem;
+    padding: 0.45rem 0.9rem;
+}
+
+.btn-delete:hover {
+    background-color: #fecaca;
+}
+
+/* Icone dentro do botao */
+.btn-icon {
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+/* ================================================== */
+/* SECAO DA LISTA DE USUARIOS                         */
+/* Container da lista e cabecalho com contador        */
+/* ================================================== */
+.list-section {
+    background: var(--color-card);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-lg);
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--color-border);
+}
+
+.list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-md);
+    padding-bottom: var(--spacing-sm);
+    border-bottom: 2px solid var(--color-primary-light);
+}
+
+.list-header h2 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--color-text);
+}
+
+/* Badge com contador de usuarios */
+.user-count {
+    background-color: var(--color-primary-light);
+    color: var(--color-text);
+    padding: 0.2rem 0.65rem;
+    border-radius: var(--radius-full);
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+/* Container da lista */
+.user-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+/* ================================================== */
+/* CARDS DE USUARIO                                    */
+/* Cada card representa um usuario na lista            */
+/* ================================================== */
+.user-card {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    padding: var(--spacing-md);
+    background-color: var(--color-bg);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border);
+    transition: var(--transition-normal);
+}
+
+/* Efeito hover no card */
+.user-card:hover {
+    transform: translateX(4px);
+    border-color: var(--color-primary);
+    box-shadow: var(--shadow-sm);
+}
+
+/* Informacoes do usuario */
+.user-info {
+    flex: 1;
+    min-width: 0; /* Permite que o texto quebre corretamente */
+}
+
+.user-name {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--color-text);
+    margin-bottom: 0.2rem;
+}
+
+.user-email,
+.user-phone {
+    font-size: 0.8rem;
+    color: var(--color-text-light);
+    margin: 0.1rem 0;
+}
+
+/* Container dos botoes de acao */
+.user-actions {
+    display: flex;
+    gap: var(--spacing-xs);
+    flex-shrink: 0;
+}
+
+/* ================================================== */
+/* MODAL DE EDICAO                                     */
+/* Janela popup para editar usuario                    */
+/* ================================================== */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    backdrop-filter: blur(4px);
+    transition: var(--transition-normal);
+}
+
+/* Classe para ocultar o modal */
+.modal.hidden {
+    display: none;
+}
+
+/* Conteudo do modal */
+.modal-content {
+    background: var(--color-card);
+    border-radius: var(--radius-lg);
+    width: 90%;
+    max-width: 500px;
+    padding: var(--spacing-lg);
+    box-shadow: var(--shadow-lg);
+    animation: modalSlideIn 0.3s ease;
+}
+
+/* Animacao de entrada do modal */
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Cabecalho do modal */
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-md);
+    padding-bottom: var(--spacing-sm);
+    border-bottom: 2px solid var(--color-primary-light);
+}
+
+.modal-header h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+/* Botao de fechar o modal */
+.modal-close {
+    background: none;
+    border: none;
+    font-size: 1.4rem;
+    cursor: pointer;
+    color: var(--color-text-light);
+    transition: var(--transition-fast);
+    padding: 0.25rem;
+    line-height: 1;
+}
+
+.modal-close:hover {
+    color: var(--color-danger);
+}
+
+/* Botoes do modal */
+.modal-actions {
+    display: flex;
+    gap: var(--spacing-sm);
+    justify-content: flex-end;
+    margin-top: var(--spacing-md);
+}
+
+/* ================================================== */
+/* RODAPE (FOOTER)                                     */
+/* Informacoes de copyright e creditos                */
+/* ================================================== */
+.footer {
+    text-align: center;
+    margin-top: var(--spacing-lg);
+    padding: var(--spacing-md);
+    color: var(--color-text-light);
+    font-size: 0.8rem;
+}
+
+.footer p {
+    margin: 0.2rem 0;
+}
+
+/* ================================================== */
+/* RESPONSIVIDADE                                      */
+/* Ajustes para telas menores (mobile)                */
+/* ================================================== */
+@media (max-width: 640px) {
+    /* Ajuste do container */
+    .container {
+        padding: var(--spacing-sm);
+    }
+    
+    /* Cabecalho menor */
+    .header h1 {
+        font-size: 1.25rem;
+    }
+    
+    /* Cards de usuario em coluna */
+    .user-card {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .user-actions {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    /* Cabecalho da lista em coluna */
+    .list-header {
+        flex-direction: column;
+        gap: var(--spacing-sm);
+    }
+}
+
+/* ================================================== */
+/* ANIMACOES                                           */
+/* Efeitos visuais para melhorar a experiencia        */
+/* ================================================== */
+
+/* Animacao de fade-in para os cards */
+.user-card {
+    animation: fadeInUp 0.4s ease;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Delay nas animacoes para efeito cascata */
+.user-card:nth-child(1) { animation-delay: 0.1s; }
+.user-card:nth-child(2) { animation-delay: 0.2s; }
+.user-card:nth-child(3) { animation-delay: 0.3s; }
+.user-card:nth-child(4) { animation-delay: 0.4s; }
+.user-card:nth-child(5) { animation-delay: 0.5s; }
