@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Gerenciamento de Categorias</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+			rel="stylesheet"
+		/>
+		<link rel="stylesheet" href="css/styles.css" />
+	</head>
+	<body>
+		<div class="container">
+			<header class="header">
+				<div
+					style="
+						display: flex;
+						align-items: center;
+						justify-content: space-between;
+						flex-wrap: wrap;
+						gap: 15px;
+					"
+				>
+					<div>
+						<h1>Gerenciamento de Categorias</h1>
+						<p>Sistema Integrado ao Banco de Dados</p>
+					</div>
+					<a
+						href="index.html"
+						class="btn btn-secondary"
+						style="
+							text-decoration: none;
+							display: inline-flex;
+							align-items: center;
+							gap: 8px;
+						"
+					>
+						<span>🏠</span>
+						<span>Voltar para Home</span>
+					</a>
+				</div>
+			</header>
+
+			<section class="form-section">
+				<h2>Adicionar Nova Categoria</h2>
+				<form id="form-categoria" class="user-form">
+					<div class="form-group">
+						<label for="nome">Nome da Categoria</label>
+						<input
+							type="text"
+							id="nome"
+							name="nome"
+							placeholder="Ex: Tecnologia, Educação, Esportes..."
+							required
+						/>
+					</div>
+
+					<div class="form-group">
+						<label for="descricao"
+							>Descrição <span style="color: red">*</span></label
+						>
+						<textarea
+							id="descricao"
+							name="descricao"
+							placeholder="Ex: Eventos relacionados a tecnologia e inovação"
+							rows="3"
+							style="
+								padding: 10px;
+								border: 1px solid #ddd;
+								border-radius: 4px;
+								width: 100%;
+								font-family: inherit;
+								resize: vertical;
+							"
+							required
+							maxlength="500"
+						></textarea>
+						<small
+							style="
+								color: #666;
+								font-size: 0.85rem;
+								display: block;
+								margin-top: 5px;
+							"
+						>
+							Máximo 500 caracteres
+						</small>
+					</div>
+
+					<button type="submit" class="btn btn-primary">
+						<span class="btn-icon">+</span>
+						Adicionar Categoria
+					</button>
+				</form>
+			</section>
+
+			<section class="list-section">
+				<div class="list-header">
+					<h2>Categorias Cadastradas</h2>
+					<span class="user-count" id="categoria-count">Carregando...</span>
+				</div>
+				<div class="user-list" id="categoria-list"></div>
+			</section>
+
+			<footer class="footer">
+				<p>Sistema de Gerenciamento de Categorias - 2025</p>
+			</footer>
+		</div>
+
+		<!-- MODAL DE EDICAO -->
+		<div id="modal-edicao" class="modal hidden">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h3>Editar Categoria</h3>
+					<button class="modal-close" onclick="fecharModal()">&times;</button>
+				</div>
+				<form id="form-edicao" class="user-form">
+					<input type="hidden" id="edit-id" />
+
+					<div class="form-group">
+						<label for="edit-nome">Nome da Categoria</label>
+						<input type="text" id="edit-nome" name="nome" required />
+					</div>
+
+					<div class="form-group">
+						<label for="edit-descricao"
+							>Descrição <span style="color: red">*</span></label
+						>
+						<textarea
+							id="edit-descricao"
+							name="descricao"
+							rows="3"
+							style="
+								padding: 10px;
+								border: 1px solid #ddd;
+								border-radius: 4px;
+								width: 100%;
+								font-family: inherit;
+								resize: vertical;
+							"
+							required
+							maxlength="500"
+						></textarea>
+						<small
+							style="
+								color: #666;
+								font-size: 0.85rem;
+								display: block;
+								margin-top: 5px;
+							"
+						>
+							Máximo 500 caracteres
+						</small>
+					</div>
+
+					<div class="modal-actions">
+						<button
+							type="button"
+							class="btn btn-secondary"
+							onclick="fecharModal()"
+						>
+							Cancelar
+						</button>
+						<button type="submit" class="btn btn-primary">
+							Salvar Alterações
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+
+		<script src="js/categoria.js"></script>
+	</body>
+</html>

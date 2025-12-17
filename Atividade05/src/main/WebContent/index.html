@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plataforma de Eventos - Home</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .nav-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+            padding: 0 20px;
+        }
+
+        .nav-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 15px;
+            padding: 35px;
+            text-align: center;
+            color: white;
+            text-decoration: none;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .nav-card.categorias {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .nav-card.usuarios {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        .nav-card.eventos {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        }
+
+        .nav-card.inscricoes {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+        }
+
+        .nav-card-icon {
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .nav-card h2 {
+            font-size: 1.6rem;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .nav-card p {
+            font-size: 0.95rem;
+            opacity: 0.95;
+            line-height: 1.5;
+        }
+
+        .hero-section {
+            text-align: center;
+            padding: 60px 20px 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 20px;
+            margin: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .hero-section h1 {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .hero-section p {
+            font-size: 1.2rem;
+            opacity: 0.95;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 40px 20px;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .stat-card .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+
+        .stat-card .stat-label {
+            color: #666;
+            font-size: 0.95rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="hero-section">
+            <h1>🎉 Plataforma de Eventos</h1>
+            <p>Sistema completo de gerenciamento de eventos, usuários, categorias e inscrições</p>
+        </div>
+
+        <div class="stats-container">
+            <div class="stat-card">
+                <div class="stat-number" id="stat-categorias">0</div>
+                <div class="stat-label">Categorias</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="stat-usuarios">0</div>
+                <div class="stat-label">Usuários</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="stat-eventos">0</div>
+                <div class="stat-label">Eventos</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="stat-inscricoes">0</div>
+                <div class="stat-label">Inscrições</div>
+            </div>
+        </div>
+
+        <div class="nav-cards">
+            <a href="categoria.html" class="nav-card categorias">
+                <span class="nav-card-icon">📁</span>
+                <h2>Categorias</h2>
+                <p>Gerencie as categorias de eventos disponíveis no sistema</p>
+            </a>
+
+            <a href="usuario.html" class="nav-card usuarios">
+                <span class="nav-card-icon">👥</span>
+                <h2>Usuários</h2>
+                <p>Cadastre e gerencie os usuários da plataforma</p>
+            </a>
+
+            <a href="evento.html" class="nav-card eventos">
+                <span class="nav-card-icon">📅</span>
+                <h2>Eventos</h2>
+                <p>Crie e organize eventos com datas, locais e categorias</p>
+            </a>
+
+            <a href="inscricao.html" class="nav-card inscricoes">
+                <span class="nav-card-icon">✅</span>
+                <h2>Inscrições</h2>
+                <p>Gerencie as inscrições de usuários nos eventos</p>
+            </a>
+        </div>
+
+        <footer class="footer" style="margin-top: 60px;">
+            <p>Sistema de Gerenciamento de Eventos - 2025</p>
+            <p style="font-size: 0.85rem; opacity: 0.7; margin-top: 5px;">Desenvolvido com Java + MySQL + Servlets</p>
+        </footer>
+    </div>
+
+    <script>
+        // Carrega estatísticas
+        async function carregarEstatisticas() {
+            try {
+                const [categorias, usuarios, eventos, inscricoes] = await Promise.all([
+                    fetch('/api/categorias').then(r => r.json()),
+                    fetch('/api/usuarios').then(r => r.json()),
+                    fetch('/api/eventos').then(r => r.json()),
+                    fetch('/api/inscricoes').then(r => r.json())
+                ]);
+
+                document.getElementById('stat-categorias').textContent = categorias.length;
+                document.getElementById('stat-usuarios').textContent = usuarios.length;
+                document.getElementById('stat-eventos').textContent = eventos.length;
+                document.getElementById('stat-inscricoes').textContent = inscricoes.length;
+            } catch (error) {
+                console.error('Erro ao carregar estatísticas:', error);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', carregarEstatisticas);
+    </script>
+</body>
+</html>
+
