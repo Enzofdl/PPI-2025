@@ -12,93 +12,154 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
-@WebServlet("/api/categorias")
+// Mapeamento duplo para suportar listagem e ações do front-end
+@WebServlet(urlPatterns = {"/api/categorias", "/api/categorias/acao"})
 public class CategoriaServlet extends HttpServlet {
 
     private CategoriaDAO dao;
 
+    // 1. INIT: Inicialização
     @Override
     public void init() {
-        System.out.println("CategoriaServlet: init() - Servlet inicializado");
+        System.out.println("CategoriaServlet: init() - Inicializando recursos...");
         dao = new CategoriaDAO();
     }
 
+    // 2. SERVICE: Monitoramento
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         System.out.println("CategoriaServlet: service() - Método: " + req.getMethod() + " | URI: " + req.getRequestURI());
         super.service(req, resp);
     }
 
+    // 3. DESTROY: Limpeza
     @Override
     public void destroy() {
-        System.out.println("CategoriaServlet: destroy() - Servlet destruído");
+        System.out.println("CategoriaServlet: destroy() - Encerrando servlet...");
         dao = null;
     }
 
+    // GET: Listar Categorias
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("application/json");
         resp.setCharacterEncoding("UTF-8");
 
-        List<Categoria> categorias = dao.listarTodas();
+        try {
+            // Nota: Verifique se no seu DAO o método chama 'listar' ou 'listarTodas'
+            // Mantive 'listarTodas' conforme seu código original.
+            List<Categoria> categorias = dao.listarTodas();
+            PrintWriter out = resp.getWriter();
 
-        PrintWriter out = resp.getWriter();
-        StringBuilder json = new StringBuilder("[");
-        for (int i = 0; i < categorias.size(); i++) {
-            Categoria c = categorias.get(i);
-            String descricao = c.getDescricao() != null ? c.getDescricao() : "";
-            json.append(String.format("{\"id\":%d, \"nome\":\"%s\", \"descricao\":\"%s\"}", 
-                c.getId(), c.getNome(), descricao));
-            if (i < categorias.size() - 1) json.append(",");
+            StringBuilder json = new StringBuilder("[");
+            for (int i = 0; i < categorias.size(); i++) {
+                Categoria c = categorias.get(i);
+
+                json.append("{");
+                json.append("\"id\":").append(c.getId()).append(",");
+                json.append("\"nome\":\"").append(tratarTexto(c.getNome())).append("\",");
+                json.append("\"descricao\":\"").append(tratarTexto(c.getDescricao())).append("\"");
+                json.append("}");
+
+                if (i < categorias.size() - 1)
+                    json.append(",");
+            }
+            json.append("]");
+            out.print(json.toString());
+
+        } catch (Exception e) {
+            resp.setStatus(500);
+            e.printStackTrace();
         }
-        json.append("]");
-
-        out.print(json.toString());
-        out.flush();
     }
 
+    // POST: Inserir, Alterar e Deletar
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
         resp.setContentType("application/json");
-        resp.setCharacterEncoding("UTF-8");
 
-        String nome = req.getParameter("nome");
-        String descricao = req.getParameter("descricao");
-
-        // Validação do nome
-        if (nome == null || nome.trim().isEmpty()) {
-            resp.setStatus(400);
-            resp.getWriter().write("{\"error\":\"Nome da categoria é obrigatório\"}");
-            return;
-        }
-
-        // Validação da descrição
-        if (descricao == null || descricao.trim().isEmpty()) {
-            resp.setStatus(400);
-            resp.getWriter().write("{\"error\":\"Descrição da categoria é obrigatória\"}");
-            return;
-        }
-
-        if (descricao.trim().length() > 500) {
-            resp.setStatus(400);
-            resp.getWriter().write("{\"error\":\"Descrição deve ter no máximo 500 caracteres\"}");
-            return;
-        }
+        String acao = req.getParameter("acao");
 
         try {
-            Categoria c = new Categoria();
-            c.setNome(nome);
-            c.setDescricao(descricao.trim());
+            if ("deletar".equals(acao)) {
+                // --- AÇÃO: DELETAR ---
+                int id = Integer.parseInt(req.getParameter("id"));
+                dao.remover(id);
 
-            dao.inserir(c);
+                resp.setStatus(200);
+                resp.getWriter().write("{\"success\":true, \"message\":\"Categoria removida\"}");
 
-            resp.setStatus(201);
-            resp.getWriter().write("{\"success\":true}");
+            } else if ("alterar".equals(acao)) {
+                // --- AÇÃO: ALTERAR ---
+                int id = Integer.parseInt(req.getParameter("id"));
+                String nome = req.getParameter("nome");
+                String descricao = req.getParameter("descricao");
+
+                // Validações
+                String erro = validarDados(nome, descricao);
+                if (erro != null) {
+                    resp.setStatus(400);
+                    resp.getWriter().write("{\"error\":\"" + erro + "\"}");
+                    return;
+                }
+
+                Categoria c = new Categoria();
+                c.setId(id);
+                c.setNome(nome);
+                c.setDescricao(descricao.trim());
+
+                dao.atualizar(id, c);
+
+                resp.setStatus(200);
+                resp.getWriter().write("{\"success\":true, \"message\":\"Categoria atualizada\"}");
+
+            } else {
+                // --- AÇÃO: INSERIR (Padrão) ---
+                String nome = req.getParameter("nome");
+                String descricao = req.getParameter("descricao");
+
+                // Validações
+                String erro = validarDados(nome, descricao);
+                if (erro != null) {
+                    resp.setStatus(400);
+                    resp.getWriter().write("{\"error\":\"" + erro + "\"}");
+                    return;
+                }
+
+                Categoria c = new Categoria();
+                c.setNome(nome);
+                c.setDescricao(descricao.trim());
+
+                dao.inserir(c);
+
+                resp.setStatus(201);
+                resp.getWriter().write("{\"success\":true, \"message\":\"Categoria criada\"}");
+            }
         } catch (Exception e) {
             resp.setStatus(500);
-            resp.getWriter().write("{\"error\":\"" + e.getMessage() + "\"}");
+            resp.getWriter().write("{\"error\":\"" + tratarTexto(e.getMessage()) + "\"}");
             e.printStackTrace();
         }
+    }
+
+    // Método auxiliar para validação (Evita repetir código no Inserir e Alterar)
+    private String validarDados(String nome, String descricao) {
+        if (nome == null || nome.trim().isEmpty()) {
+            return "Nome da categoria é obrigatório";
+        }
+        if (descricao == null || descricao.trim().isEmpty()) {
+            return "Descrição da categoria é obrigatória";
+        }
+        if (descricao.trim().length() > 500) {
+            return "Descrição deve ter no máximo 500 caracteres";
+        }
+        return null; // Sem erros
+    }
+
+    // Método auxiliar para proteger o JSON
+    private String tratarTexto(String texto) {
+        if (texto == null) return "";
+        return texto.replace("\"", "\\\"").replace("\n", " ");
     }
 }
