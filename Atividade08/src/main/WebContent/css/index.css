@@ -1,0 +1,44 @@
+.nav-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    padding: 0 20px;
+}
+
+.nav-card {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 15px;
+    padding: 35px;
+    text-align: center;
+    color: white;
+    text-decoration: none;
+    transition: transform 0.3s, box-shadow 0.3s;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+.nav-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+}
+
+.nav-card.categorias { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+.nav-card.usuarios { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
+.nav-card.eventos { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); }
+.nav-card.inscricoes { background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); }
+
+.nav-card-icon {
+    font-size: 3.5rem;
+    margin-bottom: 15px;
+    display: block;
+}
+
+.nav-card h2 {
+    font-size: 1.6rem;
+    font-weight: 600;
+}
+
+.nav-card p {
+    font-size: 0.95rem;
+    opacity: 0.95;
+    line-height: 1.5;
+}

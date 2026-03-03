@@ -1,0 +1,17 @@
+.login-container {
+    max-width: 400px;
+    margin: 100px auto;
+    background: white;
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    text-align: center;
+}
+.error-msg {
+    background-color: #fee2e2;
+    color: #dc2626;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    font-size: 0.9rem;
+}
