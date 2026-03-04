@@ -1,12 +1,14 @@
-// URL base da API
-const API_URL = "api";
+// URLs das APIs
+const API_EVENTOS = 'api/eventos';
+const API_EVENTOS_ACAO = 'api/eventos/acao';
+const API_CATEGORIAS = 'api/categorias';
 
 document.addEventListener('DOMContentLoaded', function () {
     // 1. Carrega as categorias do banco para preencher os <select>
     carregarCategorias();
 
-    // 2. Carrega a lista de eventos salva no banco
-    listarEventos();
+    // 2. Carrega a lista de eventos (agora chamando a função correta)
+    carregarEventos();
 
     // Listeners dos formulários
     document.getElementById('form-evento').addEventListener('submit', adicionarEvento);
@@ -30,7 +32,7 @@ function escaparString(str) {
 // 1. CARREGAR CATEGORIAS (Do Banco para o Select)
 // ==============================================================
 function carregarCategorias() {
-    fetch(`${API_URL}/categorias`)
+    fetch(API_CATEGORIAS)
         .then(response => response.json())
         .then(categorias => {
             const selects = [
@@ -52,66 +54,56 @@ function carregarCategorias() {
 }
 
 // ==============================================================
-// 2. LISTAR EVENTOS (Do Banco para a Tela)
+// 2. CARREGAR EVENTOS (Idêntico ao usuario.js)
 // ==============================================================
-function listarEventos() {
-    fetch(`${API_URL}/eventos`)
-        .then(response => response.json())
-        .then(eventos => {
-            renderizarLista(eventos);
-        })
-        .catch(error => console.error('Erro ao listar eventos:', error));
-}
+async function carregarEventos() {
+    try {
+        const response = await fetch(API_EVENTOS);
+        const eventos = await response.json();
 
-function renderizarLista(eventos) {
-    const lista = document.getElementById('event-list');
-    lista.innerHTML = '';
+        const lista = document.getElementById('event-list');
+        const count = document.getElementById('event-count');
 
-    const count = eventos.length;
-    document.getElementById('event-count').textContent = `${count} evento${count !== 1 ? 's' : ''}`;
+        count.textContent = `${eventos.length} evento${eventos.length !== 1 ? 's' : ''}`;
 
-    if (eventos.length === 0) {
-        lista.innerHTML = '<div class="user-card"><p style="padding:10px">Nenhum evento cadastrado.</p></div>';
-        return;
+        if (eventos.length === 0) {
+            lista.innerHTML = '<div class="user-item"><p>Nenhum evento cadastrado.</p></div>';
+            return;
+        }
+
+        lista.innerHTML = eventos.map(evento => {
+            // Formata a data de yyyy-mm-dd para dd/mm/yyyy
+            let dataFormatada = evento.data;
+            if (evento.data && evento.data.includes('-')) {
+                const [ano, mes, dia] = evento.data.split('-');
+                dataFormatada = `${dia}/${mes}/${ano}`;
+            }
+
+            // A estrutura HTML abaixo (user-item) herda o CSS perfeitamente
+            return `
+            <div class="user-item">
+                <div class="user-info">
+                    <h3>${evento.nome}</h3>
+                    <p><strong>Data:</strong> ${dataFormatada}</p>
+                    <p><strong>Local:</strong> ${evento.local}</p>
+                    <p><strong>Categoria:</strong> ${evento.categoriaNome || evento.categoria}</p>
+                </div>
+                <div class="user-actions">
+                    <button class="btn-action btn-edit" onclick="abrirModalEdicao(${evento.id}, '${escaparString(evento.nome)}', '${evento.data}', '${escaparString(evento.local)}', ${evento.categoriaId || evento.categoria})" title="Editar">
+                        ✏️
+                    </button>
+                    <button class="btn-action btn-delete" onclick="removerEvento(${evento.id})" title="Excluir">
+                        🗑️
+                    </button>
+                </div>
+            </div>
+            `;
+        }).join('');
+
+    } catch (error) {
+        console.error('Erro ao carregar eventos:', error);
+        alert('Erro ao carregar eventos');
     }
-
-    eventos.forEach(evento => {
-        const card = criarCardEvento(evento);
-        lista.appendChild(card);
-    });
-}
-
-function criarCardEvento(evento) {
-    const card = document.createElement('div');
-    card.className = 'user-card';
-    card.setAttribute('data-id', evento.id);
-
-    // Formata a data (yyyy-mm-dd -> dd/mm/yyyy)
-    const [ano, mes, dia] = evento.data.split('-');
-    const dataFormatada = `${dia}/${mes}/${ano}`;
-
-    // ALTERAÇÃO AQUI: Estrutura visual igual ao categoria.js
-    card.innerHTML = `
-        <div class="user-info">
-            <h3 class="user-name">${evento.nome}</h3>
-            <p class="user-email"><strong>Data:</strong> ${dataFormatada}</p>
-            <p class="user-phone"><strong>Local:</strong> ${evento.local}</p>
-            <p style="font-size: 0.85rem; color: #666; margin-top: 5px;">
-                <span style="background: #eef; padding: 2px 6px; border-radius: 4px; color: #4a6fa5;">
-                    ${evento.categoriaNome || 'Categoria ' + evento.categoria}
-                </span>
-            </p>
-        </div>
-        <div class="user-actions">
-            <button class="btn-action btn-edit" onclick="abrirModalEdicao(${evento.id}, '${escaparString(evento.nome)}', '${evento.data}', '${escaparString(evento.local)}', ${evento.categoria})" title="Editar">
-                ✏️
-            </button>
-            <button class="btn-action btn-delete" onclick="removerEvento(${evento.id})" title="Excluir">
-                🗑️
-            </button>
-        </div>
-    `;
-    return card;
 }
 
 // ==============================================================
@@ -126,7 +118,7 @@ function adicionarEvento(event) {
     formData.append('local', document.getElementById('local').value);
     formData.append('categoria', document.getElementById('categoria').value);
 
-    fetch(`${API_URL}/eventos`, {
+    fetch(API_EVENTOS, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
@@ -137,7 +129,7 @@ function adicionarEvento(event) {
             if (response.ok) {
                 alert('Evento cadastrado com sucesso!');
                 event.target.reset();
-                listarEventos();
+                carregarEventos(); // Recarrega a lista
             } else {
                 alert('Erro ao cadastrar evento.');
             }
@@ -146,7 +138,7 @@ function adicionarEvento(event) {
 }
 
 // ==============================================================
-// 4. REMOVER EVENTO (Renomeado de excluirEvento)
+// 4. REMOVER EVENTO
 // ==============================================================
 function removerEvento(id) {
     if (!confirm("Tem certeza que deseja remover este evento?")) return;
@@ -155,20 +147,20 @@ function removerEvento(id) {
     formData.append('acao', 'deletar');
     formData.append('id', id);
 
-    fetch(`${API_URL}/eventos/acao`, {
+    fetch(API_EVENTOS_ACAO, {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
         body: formData
     })
         .then(() => {
-            listarEventos();
+            carregarEventos(); // Atualiza a lista
             alert('Evento removido com sucesso!');
         })
         .catch(error => console.error('Erro:', error));
 }
 
 // ==============================================================
-// 5. ABRIR MODAL EDIÇÃO (Renomeado de prepararEdicao)
+// 5. ABRIR MODAL EDIÇÃO
 // ==============================================================
 function abrirModalEdicao(id, nome, data, local, catId) {
     document.getElementById('edit-id').value = id;
@@ -194,7 +186,7 @@ function salvarEdicao(event) {
     formData.append('local', document.getElementById('edit-local').value);
     formData.append('categoria', document.getElementById('edit-categoria').value);
 
-    fetch(`${API_URL}/eventos/acao`, {
+    fetch(API_EVENTOS_ACAO, {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
         body: formData
@@ -202,7 +194,7 @@ function salvarEdicao(event) {
         .then(() => {
             alert('Evento alterado com sucesso!');
             fecharModal();
-            listarEventos();
+            carregarEventos(); // Atualiza a lista
         })
         .catch(error => console.error('Erro:', error));
 }
@@ -212,6 +204,5 @@ function salvarEdicao(event) {
 // ==============================================================
 function fecharModal() {
     document.getElementById('modal-edicao').classList.add('hidden');
-    // Limpa o form de edição ao fechar para evitar dados antigos
     document.getElementById('form-edicao').reset();
 }

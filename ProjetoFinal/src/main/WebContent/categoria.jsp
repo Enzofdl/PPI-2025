@@ -49,29 +49,23 @@
     </section>
 </div>
 
-<!-- MODAL DE EDICAO -->
 <div id="modal-edicao" class="modal hidden">
     <div class="modal-content">
         <div class="modal-header">
-            <h3>Editar Usuário</h3>
+            <h3>Editar Categoria</h3>
             <button class="modal-close" onclick="fecharModal()">&times;</button>
         </div>
         <form id="form-edicao" class="user-form">
             <input type="hidden" id="edit-id">
 
             <div class="form-group">
-                <label for="edit-nome">Nome Completo</label>
+                <label for="edit-nome">Nome da Categoria</label>
                 <input type="text" id="edit-nome" name="nome" required>
             </div>
 
             <div class="form-group">
-                <label for="edit-email">E-mail</label>
-                <input type="email" id="edit-email" name="email" required>
-            </div>
-
-            <div class="form-group">
-                <label for="edit-telefone">Telefone</label>
-                <input type="tel" id="edit-telefone" name="telefone" required>
+                <label for="edit-descricao">Descrição</label>
+                <textarea id="edit-descricao" name="descricao" rows="3" required></textarea>
             </div>
 
             <div class="modal-actions">

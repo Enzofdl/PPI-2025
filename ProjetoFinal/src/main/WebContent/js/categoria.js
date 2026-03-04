@@ -46,9 +46,15 @@ async function carregarCategorias() {
     }
 }
 
-// Função auxiliar para escapar aspas em strings
+// Função auxiliar para escapar aspas e quebras de linha com segurança total
 function escaparString(str) {
-    return str.replace(/'/g, "\\'").replace(/"/g, '\\"');
+    if (!str) return '';
+    return String(str)
+        .replace(/\\/g, "\\\\")   // Protege barras invertidas
+        .replace(/'/g, "\\'")     // Protege aspas simples (para o JS)
+        .replace(/"/g, "&quot;")  // Protege aspas duplas (para o HTML)
+        .replace(/\n/g, "\\n")    // Protege quebras de linha (Enter)
+        .replace(/\r/g, "");      // Remove retornos invisíveis
 }
 
 // Adiciona nova categoria

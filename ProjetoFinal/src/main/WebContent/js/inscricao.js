@@ -24,7 +24,7 @@ async function carregarInscricoes() {
         const lista = document.getElementById('inscricao-list');
         const count = document.getElementById('inscricao-count');
 
-        count.textContent = `${inscricoes.length} inscrição${inscricoes.length !== 1 ? 'ões' : ''}`;
+        count.textContent = `${inscricoes.length} inscrição${inscricoes.length > 1 ? 'ões' : ''}`;
 
         if (inscricoes.length === 0) {
             lista.innerHTML = '<div class="user-item"><p>Nenhuma inscrição cadastrada.</p></div>';

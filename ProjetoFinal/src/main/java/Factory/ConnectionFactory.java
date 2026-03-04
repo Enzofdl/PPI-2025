@@ -12,7 +12,7 @@ public class ConnectionFactory {
 
     private static final String USER = "root";
 
-    private static final String PASS = "root";
+    private static final String PASS = "admin";
 
     public static Connection getConnection() {
         try {
