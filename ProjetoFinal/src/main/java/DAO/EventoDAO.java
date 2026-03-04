@@ -11,7 +11,8 @@ import java.util.List;
 public class EventoDAO {
 
     public void inserir(Evento e) {
-        String sql = "INSERT INTO evento(nome, local_evento, data_evento, id_categoria) VALUES (?, ?, ?, ?)";
+        // SQL atualizado com a coluna imagem
+        String sql = "INSERT INTO evento(nome, local_evento, data_evento, id_categoria, imagem) VALUES (?, ?, ?, ?, ?)";
 
         try (Connection conn = ConnectionFactory.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -19,6 +20,7 @@ public class EventoDAO {
             stmt.setString(2, e.getLocal());
             stmt.setDate(3, new java.sql.Date(e.getData().getTime()));
             stmt.setInt(4, e.getCategoria().getId());
+            stmt.setString(5, e.getImagem()); // Passa a imagem (ou null)
             stmt.execute();
         } catch (SQLException event) {
             throw new RuntimeException(event);
@@ -26,7 +28,8 @@ public class EventoDAO {
     }
 
     public void atualizar(int id, Evento e) {
-        String sql = "UPDATE evento SET nome=?, local_evento=?, data_evento=?, id_categoria=? WHERE id=?";
+        // Uso de COALESCE: Se o parâmetro 5 (imagem) for NULL, ele mantém o valor antigo da coluna 'imagem'
+        String sql = "UPDATE evento SET nome=?, local_evento=?, data_evento=?, id_categoria=?, imagem=COALESCE(?, imagem) WHERE id=?";
 
         try (Connection con = ConnectionFactory.getConnection();
              PreparedStatement stmt = con.prepareStatement(sql)) {
@@ -35,7 +38,8 @@ public class EventoDAO {
             stmt.setString(2, e.getLocal());
             stmt.setDate(3, new java.sql.Date(e.getData().getTime()));
             stmt.setInt(4, e.getCategoria().getId());
-            stmt.setInt(5, id);
+            stmt.setString(5, e.getImagem()); // Pode ser null se não fez upload na edição
+            stmt.setInt(6, id);
             stmt.executeUpdate();
 
         } catch (SQLException ex) {
@@ -72,6 +76,9 @@ public class EventoDAO {
                 e.setNome(rs.getString("nome"));
                 e.setData(rs.getDate("data_evento"));
                 e.setLocal(rs.getString("local_evento"));
+
+                // Resgata o nome da imagem do banco
+                e.setImagem(rs.getString("imagem"));
 
                 Categoria c = new Categoria();
                 c.setId(rs.getInt("id_categoria"));

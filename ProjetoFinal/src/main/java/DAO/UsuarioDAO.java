@@ -78,5 +78,32 @@ public class UsuarioDAO {
         }
         return lista;
     }
+
+    // Adicione este método dentro da sua classe UsuarioDAO
+    public Usuario autenticar(String email, String senha) {
+        // Assume que você tem uma coluna 'senha' na sua tabela 'usuario'
+        String sql = "SELECT * FROM usuario WHERE email = ? AND senha = ?";
+
+        try (java.sql.Connection conn = Factory.ConnectionFactory.getConnection();
+             java.sql.PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, email);
+            stmt.setString(2, senha);
+
+            try (java.sql.ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    Usuario u = new Usuario();
+                    u.setId(rs.getInt("id"));
+                    u.setNome(rs.getString("nome"));
+                    u.setEmail(rs.getString("email"));
+                    // Não precisamos carregar a senha para o objeto por segurança
+                    return u; // Retorna o usuário se encontrou
+                }
+            }
+        } catch (java.sql.SQLException ex) {
+            ex.printStackTrace();
+        }
+        return null; // Retorna nulo se o email/senha estiverem errados
+    }
 }
 

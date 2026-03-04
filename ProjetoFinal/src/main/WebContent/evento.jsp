@@ -48,10 +48,14 @@
 
             <div class="form-group">
                 <label for="categoria">Categoria</label>
-                <!-- As opções virão do Banco de Dados via JavaScript -->
                 <select id="categoria" name="categoria" style="padding: 10px; border: 1px solid #ddd; border-radius: 4px; width: 100%;" required>
                     <option value="" disabled selected>Carregando categorias...</option>
                 </select>
+            </div>
+
+            <div class="form-group">
+                <label for="imagem">Banner/Imagem do Evento</label>
+                <input type="file" id="imagem" name="imagem" accept="image/*">
             </div>
 
             <button type="submit" class="btn btn-primary">
@@ -71,7 +75,6 @@
 
 </div>
 
-<!-- MODAL DE EDICAO -->
 <div id="modal-edicao" class="modal hidden">
     <div class="modal-content">
         <div class="modal-header">
@@ -98,10 +101,14 @@
 
             <div class="form-group">
                 <label for="edit-categoria">Categoria</label>
-                <!-- As opções virão do Banco de Dados via JavaScript -->
                 <select id="edit-categoria" name="categoria" style="padding: 10px; border: 1px solid #ddd; border-radius: 4px; width: 100%;" required>
                     <option value="" disabled selected>Carregando...</option>
                 </select>
+            </div>
+
+            <div class="form-group">
+                <label for="edit-imagem">Nova Imagem (Opcional)</label>
+                <input type="file" id="edit-imagem" name="imagem" accept="image/*">
             </div>
 
             <div class="modal-actions">

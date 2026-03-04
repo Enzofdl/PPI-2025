@@ -8,6 +8,7 @@ public class Evento {
     private Date data;
     private String local;
     private Categoria categoria;
+    private String imagem; // NOVO CAMPO
 
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
@@ -19,4 +20,8 @@ public class Evento {
     public void setLocal(String local) { this.local = local; }
     public Categoria getCategoria() { return categoria; }
     public void setCategoria(Categoria categoria) { this.categoria = categoria; }
+
+    // GETTER E SETTER DA IMAGEM
+    public String getImagem() { return imagem; }
+    public void setImagem(String imagem) { this.imagem = imagem; }
 }
